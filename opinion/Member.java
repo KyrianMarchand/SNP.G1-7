@@ -10,4 +10,8 @@ public class Member {
         this.password = password;
         this.profile = profile;
     }
+
+    public String getLogin(){
+        return this.login;
+    }
 }
