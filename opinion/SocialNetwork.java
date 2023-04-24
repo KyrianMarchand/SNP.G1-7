@@ -21,14 +21,9 @@ public class SocialNetwork implements ISocialNetwork {
 		this.members = new LinkedList<Member>();
 	}
 
-	public boolean addMember(Member member) {
-		if(member == null){
-			return false;
-		}
-		else if(){
-
-		}
-		members.add(member);
+	public boolean addMember(Member member) throws BadEntryException, MemberAlreadyExistsException {
+		if(member == null) throw new BadEntryException("erreur");
+		if(member <)
 	}
 
 	@Override
