@@ -15,6 +15,22 @@ import exceptions.NotMemberException;
  */
 public class SocialNetwork implements ISocialNetwork {
 
+	private LinkedList<Member> members;
+
+	public SocialNetwork() {
+		this.members = new LinkedList<Member>();
+	}
+
+	public boolean addMember(Member member) {
+		if(member == null){
+			return false;
+		}
+		else if(){
+
+		}
+		members.add(member);
+	}
+
 	@Override
 	public int nbMembers() {
 		// TODO Auto-generated method stub

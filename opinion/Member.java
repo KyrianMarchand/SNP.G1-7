@@ -10,4 +10,5 @@ public class Member {
         this.password = password;
         this.profile = profile;
     }
+
 }
