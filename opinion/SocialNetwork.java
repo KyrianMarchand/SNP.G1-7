@@ -16,9 +16,11 @@ import exceptions.NotMemberException;
 public class SocialNetwork implements ISocialNetwork {
 
     private LinkedList<Member> members;
+	private LinkedList<Book> books;
 
     public SocialNetwork() {
         this.members = new LinkedList<Member>();
+		this.books = new LinkedList<Book>();
     }
 
     @Override
@@ -34,8 +36,7 @@ public class SocialNetwork implements ISocialNetwork {
 
     @Override
     public int nbBooks() {
-        // TODO Auto-generated method stub
-        return 0;
+		return books.size();
     }
 
     @Override
