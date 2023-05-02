@@ -281,7 +281,18 @@ try {
         "A String concatenation building an already registered title was accepted as login for a new member");
 		nbTests++;
 
-        // <=> test n°3
+		// <=> test n°3
+		// memeber already exist
+		nbErrors += addNotMemberException(sn,
+        "Antoine", "kyrian",new String("L'aventure"),
+        "Aventure", "Marchand",  18, "2.2",
+        "The Login of the first book was accepted");
+		nbErrors += addNotMemberException(sn,
+        "Kyrian", "blabla",new String("L'aventure"),
+        "Aventure", "Marchand",  18, "2.2",
+        "The password dosn't match");
+
+        // <=> test n°4
 
 		// check that 'sn' was not modified
 		if (nbFilms != sn.nbFilms()) {
@@ -304,9 +315,6 @@ try {
 			return null;
 			}
 		}
-				// <=> test n°4
-		// memeber already exist
-
 	
 	
 	/**
