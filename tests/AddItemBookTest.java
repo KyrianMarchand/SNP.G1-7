@@ -225,80 +225,68 @@ try {
         nbTests++;
         nbErrors += addBookBadEntryTest(
             sn, "B", "pass", null, "Aventure",
-            "Kyrian", 3, "1.4",
+            "Kyrian", 3, "1.5",
                 "addItmeBook() doesn't reject null title)");
         nbTests++;
         nbErrors += addBookBadEntryTest(
             sn, "B", "pass", " ", "Aventure",
-            "Kyrian", 3, "1.4",
+            "Kyrian", 3, "1.6",
                 "addItmeBook() doesn't reject title at least one character other than space)");
         nbTests++;
         nbErrors += addBookBadEntryTest(
             sn, "B", "pass", "title", "Aventure",
-            null, 3, "1.4",
+            null, 3, "1.7",
                 "addItmeBook() doesn't reject null author)");
         nbTests++;
         nbErrors += addBookBadEntryTest(
             sn, "B", "pass", "title", "Aventure",
-            "Kyrian", 0, "1.4",
+            "Kyrian", 0, "1.8",
                 "addItmeBook() doesn't reject <0 nbPages)");
 		// <=> test n°2
-
 		// populate 'sn' with 3 books
 
 		nbTests++;
-		nbErrors += addBookOKTest(sn, "Kyrian", "password", "L'aventure", "Aventure", "Marchand", 18, "2.1a");
+		nbErrors += addBookOKTest(sn, "Kyrian", "kyrian", "L'aventure", "Aventure", "Marchand", 18, "2.1a");
 		nbTests++;
-		nbErrors += addBookOKTest(sn, "Tommy", "password2", "L'aventure 2.0", "Policier", "Girardi", 22, "2.1b");
+		nbErrors += addBookOKTest(sn, "Tommy", "tommy", "La boulangerie", "Policier", "Girardi", 22, "2.1b");
 		nbTests++;
-		nbErrors += addBookOKTest(sn, "Marin", "password3", "L'aventure 3.0", "Fantastique", "Pigarre", 3, "2.1c");
+		nbErrors += addBookOKTest(sn, "Marin", "marin", "IMT Atlantique", "Fantastique", "Pigarre", 3, "2.1c");
 
 		// try to add already registered members
 
 		nbTests++;
-		nbErrors += addMemberAlreadyExistsTest(sn, new String("Paul"),
-				"abcdefghij", "", "2.2",
-				"The login of the first member was accepted as login for a new member");
+		nbErrors += addItemBookAlreadyExistsException(sn,
+        "Kyrian", "kyrian",new String("L'aventure"),
+        "Aventure", "Marchand",  18, "2.2",
+        "The title of the first book was accepted as title for a new book");
 		nbTests++;
-		nbErrors += addMemberAlreadyExistsTest(sn, new String("Alice"),
-				"abcdefghij", "", "2.3",
-				"The login of the last member was accepted as login for a new member");
+		nbErrors += addItemBookAlreadyExistsException(sn,
+        "Marin", "marin",new String("La boulangerie"),
+        "Policier", "Pignarre",  22, "2.3",
+        "The title of the last book was accepted as title for a new book");
 		nbTests++;
-		nbErrors += addMemberAlreadyExistsTest(
-				sn,
-				new String("anToine"),
-				"abcdefghij",
-				"",
-				"2.4",
-				"An already registered login, but with different case, was accepted as login for a new member");
+		nbErrors += addItemBookAlreadyExistsException(sn,
+        "Kyrian", "kyrian",new String("L'aVenTure"),
+        "Aventure", "Marchand",  18, "2.4",
+        "An already registered title, but with different case, was accepted as title for a new book");
 		nbTests++;
-		nbErrors += addMemberAlreadyExistsTest(
-				sn,
-				new String(" Antoine "),
-				"abcdefghij",
-				"",
-				"2.5",
-				"An already registered login, surrounded by leading/trailing blanks, was accepted as login for a new member");
+		nbErrors += addItemBookAlreadyExistsException(sn,
+        "Kyrian", "kyrian",new String(" L'aventure "),
+        "Aventure", "Marchand",  18, "2.5",
+        "An already registered title, surrounded by leading/trailing blanks, was accepted as title for a new book");
 		nbTests++;
-		nbErrors += addMemberAlreadyExistsTest(
-				sn,
-				"An" + "toi" + "ne",
-				"abcdefghij",
-				"",
-				"2.6",
-				"A String concatenation building an already registered login was accepted as login for a new member");
+		nbErrors += addItemBookAlreadyExistsException(sn,
+        "Kyrian", "kyrian","L'a" + "ven" + "ture",
+        "Aventure", "Marchand",  18, "2.6",
+        "A String concatenation building an already registered title was accepted as login for a new member");
+		nbTests++;
 
-		nbTests++;
+        // <=> test n°3
+
 		// check that 'sn' was not modified
 		if (nbFilms != sn.nbFilms()) {
 			System.out
 					.println("Error : the number of films was unexepectedly changed by addMember()");
-			nbErrors++;
-		}
-		nbTests++;
-		if (nbBooks != sn.nbBooks()) {
-			System.out
-					.println("Error : the number of books was unexepectedly changed by addMember()");
 			nbErrors++;
 		}
 
@@ -308,15 +296,17 @@ try {
 		// Print a summary of the tests and return test results
 		try{
 			TestReport tr = new TestReport(nbTests, nbErrors);	
-			System.out.println("AddMemberTest : " + tr);
+			System.out.println("addItemBookTest : " + tr);
 			return tr;	
 		}
 		catch (NotTestReportException e){ //This shouldn't happen
-			System.out.println("Unexpected error in AddMemberTest test code - Can't return valuable test results");
+			System.out.println("Unexpected error in addItemBookTest test code - Can't return valuable test results");
 			return null;
 			}
 		}
- 
+				// <=> test n°4
+		// memeber already exist
+
 	
 	
 	/**
