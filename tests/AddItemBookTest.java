@@ -285,11 +285,11 @@ try {
 		// memeber already exist
 		nbErrors += addNotMemberException(sn,
         "Antoine", "kyrian",new String("L'aventure"),
-        "Aventure", "Marchand",  18, "2.2",
+        "Aventure", "Marchand",  18, "3.1",
         "The Login of the first book was accepted");
 		nbErrors += addNotMemberException(sn,
         "Kyrian", "blabla",new String("L'aventure"),
-        "Aventure", "Marchand",  18, "2.2",
+        "Aventure", "Marchand",  18, "3.2",
         "The password dosn't match");
 
         // <=> test n°4
