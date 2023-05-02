@@ -7,6 +7,7 @@ public class Book {
     private int nbPages;
 
     public Book(String title, String kind, String author, int nbPages){
+        this.title = title;
         this.author = author;
         this.kind = kind;
         this.author = author;

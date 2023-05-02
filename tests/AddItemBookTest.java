@@ -1,11 +1,13 @@
 package tests;
 
 import opinion.ISocialNetwork;
+import opinion.Member;
 import opinion.SocialNetwork;
 
 
 import exceptions.BadEntryException;
 import exceptions.ItemBookAlreadyExistsException;
+import exceptions.MemberAlreadyExistsException;
 import exceptions.NotMemberException;
 import exceptions.NotTestReportException;
 
@@ -190,21 +192,23 @@ try {
 
 		ISocialNetwork sn = new SocialNetwork();
 
-		int nbBooks = sn.nbBooks(); // number of books in 'sn' (should be 0
-									// here)
-		int nbFilms = sn.nbFilms(); // number of films in 'sn' (should be 0
-									// here)
+		int nbBooks = sn.nbBooks();
+		int nbFilms = sn.nbFilms();
 
-		int nbTests = 0; // total number of performed tests
-		int nbErrors = 0; // total number of failed tests
+		int nbTests = 0;
+		int nbErrors = 0;
+		
+		try {
+			sn.addMember("Kyrian", "kyrian", "notnull");
+			sn.addMember("Tommy", "tommy", "notnull");
+			sn.addMember("Marin", "marin", "notnull");
+		} catch (BadEntryException | MemberAlreadyExistsException e) {
+			e.printStackTrace();
+		}
 
 		System.out.println("Testing addItemBook()");
 
 		// <=> test n°1
-
-		// check if incorrect parameters cause addMember() to throw BadEntry
-		// exception
-
 		nbTests++;
 		nbErrors += addBookBadEntryTest(sn, null, "pass", "Titre", "Aventure",
 				"Kyrian", 3, "1.1", "addItmeBook() doesn't reject null passwords");
@@ -244,7 +248,6 @@ try {
                 "addItmeBook() doesn't reject <0 nbPages)");
 		// <=> test n°2
 		// populate 'sn' with 3 books
-
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Kyrian", "kyrian", "L'aventure", "Aventure", "Marchand", 18, "2.1a");
 		nbTests++;
