@@ -18,43 +18,34 @@ public class AddItemBookTest {
     String kind, String author, int nbPages, String testId,
 	String errorMessage) {
 
-int nbBooks = sn.nbBooks(); // Number of members when starting to
-                            // run this method
+int nbBooks = sn.nbBooks();
+
 try {
-    sn.addItemBook(login, password, title, kind, author, nbPages); // Try to add this member
-    // Reaching this point means that no exception was thrown by
-    System.out.println("Err " + testId + " : " + errorMessage); // display
-                                                                // the
-                                                                // error
-                                                                // message
-    return 1; // and return the "error" value
-} catch (BadEntryException e) { // BadEntry exception was thrown by
-                                // addMember() : this is a good start!
-                                // Let's now check if 'sn' was not
-                                // impacted
-    if (sn.nbBooks() != nbBooks) { // The number of members has
-                                   // changed : this is an error
-                                   // case.
+    sn.addItemBook(login, password, title, kind, author, nbPages); 
+
+    System.out.println("Err " + testId + " : " + errorMessage); 
+
+    return 1; 
+} catch (BadEntryException e) { 
+
+    if (sn.nbBooks() != nbBooks) { 
+
         System.out
                 .println("Err "
                         + testId
-                        + " : BadEntry was thrown but the number of books was changed"); // Display
-                                                                                           // a
-                                                                                           // specific
-                                                                                           // error
-                                                                                           // message
-        return 1; // return "error" value
+                        + " : BadEntry was thrown but the number of books was changed"); 
+
+        return 1;
     } else
-        // The number of members hasn't changed, which is considered a
-        // good indicator that 'sn' was not modified
-        return 0; // return success value : everything seems OK, nothing
-                  // to display
-} catch (Exception e) { // An exception was thrown by addMember(), but
-                        // it was not the expected exception BadEntry
+
+        return 0; 
+
+} catch (Exception e) { 
+
     System.out.println("Err " + testId + " : unexpected exception. "
-            + e); // Display a specific error message
-    e.printStackTrace(); // Display contextual info about what happened
-    return 1; // return error value
+            + e); 
+    e.printStackTrace(); 
+    return 1; 
 }
 }
 
@@ -63,42 +54,26 @@ try {
     String kind, String author, int nbPages, String testId,
 	String errorMessage) {
 
-		int nbBooks = sn.nbBooks(); // Number of members when starting to
-										// process this method
+		int nbBooks = sn.nbBooks(); 
+
 		try {
-			sn.addItemBook(login, password, title, kind, author, nbPages); // Try to add this member
-			// Reaching this point means that no exception was thrown by
-			// addMember()
-			System.out.println("Err " + testId + " : " + errorMessage); // display
-																		// the
-																		// error
-																		// message
-			return 1; // and return the "error" value
-		} catch (ItemBookAlreadyExistsException e) {// AlreadyExists exception was
-													// thrown by addMember() :
-													// this is a good start!
-													// Let's now check if 'sn'
-													// was not impacted
+			sn.addItemBook(login, password, title, kind, author, nbPages); 
+			System.out.println("Err " + testId + " : " + errorMessage); 
+			return 1; 
+		} catch (ItemBookAlreadyExistsException e) {
 			if (sn.nbBooks() != nbBooks) {
 				System.out
 						.println("Err "
 								+ testId
-								+ " : ItemBookAlreadyExistsException was thrown, but the number of books was changed"); // Display
-																												// a
-																												// specific
-																												// error
-																												// message
-				return 1;// and return the "error" value
+								+ " : ItemBookAlreadyExistsException was thrown, but the number of books was changed");
+				return 1;
 			} else
-				return 0; // return success value : everything is OK, nothing to
-							// display
-		} catch (Exception e) { // An exception was thrown by addMember(), but
-								// it was not the expected exception
-								// AlreadyExists
+				return 0;
+		} catch (Exception e) {
 			System.out.println("Err " + testId + " : unexpected exception. "
-					+ e); // Display a specific error message
-			e.printStackTrace(); // Display contextual info about what happened
-			return 1; // return error value
+					+ e);
+			e.printStackTrace();
+			return 1;
 		}
 	}
 
@@ -107,87 +82,49 @@ try {
     String kind, String author, int nbPages, String testId,
 	String errorMessage) {
         
-		int nbBooks = sn.nbBooks(); // Number of members when starting to
-										// process this method
+		int nbBooks = sn.nbBooks(); 
 		try {
-			sn.addItemBook(login, password, title, kind, author, nbPages); // Try to add this member
-			// Reaching this point means that no exception was thrown by
-			// addMember()
-			System.out.println("Err " + testId + " : " + errorMessage); // display
-																		// the
-																		// error
-																		// message
-			return 1; // and return the "error" value
-		} catch (NotMemberException e) {// AlreadyExists exception was
-													// thrown by addMember() :
-													// this is a good start!
-													// Let's now check if 'sn'
-													// was not impacted
+			sn.addItemBook(login, password, title, kind, author, nbPages);
+			System.out.println("Err " + testId + " : " + errorMessage);
+			return 1;
+		} catch (NotMemberException e) {
 			if (sn.nbBooks() != nbBooks) {
 				System.out
 						.println("Err "
 								+ testId
-								+ " : NotMemberException was thrown, but the number of books was changed"); // Display
-																												// a
-																												// specific
-																												// error
-																												// message
-				return 1;// and return the "error" value
+								+ " : NotMemberException was thrown, but the number of books was changed");
+				return 1;
 			} else
-				return 0; // return success value : everything is OK, nothing to
-							// display
-		} catch (Exception e) { // An exception was thrown by addMember(), but
-								// it was not the expected exception
-								// AlreadyExists
+				return 0;
+		} catch (Exception e) {
 			System.out.println("Err " + testId + " : unexpected exception. "
-					+ e); // Display a specific error message
-			e.printStackTrace(); // Display contextual info about what happened
-			return 1; // return error value
+					+ e); 
+			e.printStackTrace();
+			return 1; 
 		}
     }
 
 	private static int addBookOKTest(ISocialNetwork sn,
     String login, String password, String title,
     String kind, String author, int nbPages, String testId) {
-		int nbBooks = sn.nbBooks(); // Number of members when starting to
-										// process this method
+		int nbBooks = sn.nbBooks();
 		try {
-			sn.addItemBook(login, password, title, kind, author, nbPages); // Try to add this member
-			// No exception was thrown. That's a good start !
-			if (sn.nbBooks() != nbBooks + 1) { // But the number of members
-													// hasn't changed
-													// accordingly
+			sn.addItemBook(login, password, title, kind, author, nbPages);
+			if (sn.nbBooks() != nbBooks + 1) { 
 				System.out.println("Err " + testId
 						+ " : the number of book (" + nbBooks
-						+ ") was not incremented"); // Error message displayed
-				return 1; // return error code
+						+ ") was not incremented");
+				return 1; 
 			} else
-				return 0; // return success code : everything is OK, nothing to
-							// display
-		} catch (Exception e) {// An exception was thrown by addMember() : this
-								// is an error case
+				return 0;
+		} catch (Exception e) {
 			System.out
-					.println("Err " + testId + " : unexpected exception " + e); // Error
-																				// message
-																				// displayed
-			e.printStackTrace(); // Display contextual info about what happened
-			return 1; // return error code
+					.println("Err " + testId + " : unexpected exception " + e);
+			e.printStackTrace();
+			return 1;
 		}
 	}
 
-
-	/**
-	 * <i>addMember()</i> main test :
-	 * <ul>
-	 * <li>check if members can be added</li>
-	 * <li>check if incorrect parameters cause addMember() to throw BadEntry
-	 * exception</li>
-	 * <li>check if adding already registered members cause addMember() to throw
-	 * AlreadyExists exception</li>
-	 * </ul>
-	 * 
-	 * @return a summary of the performed tests
-	 */
 	public static TestReport test(){
 
 		ISocialNetwork sn = new SocialNetwork();
@@ -246,16 +183,15 @@ try {
             sn, "B", "pass", "title", "Aventure",
             "Kyrian", 0, "1.8",
                 "addItmeBook() doesn't reject <0 nbPages)");
+
 		// <=> test n°2
-		// populate 'sn' with 3 books
+
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Kyrian", "kyrian", "L'aventure", "Aventure", "Marchand", 18, "2.1a");
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Tommy", "tommy", "La boulangerie", "Policier", "Girardi", 22, "2.1b");
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Marin", "marin", "IMT Atlantique", "Fantastique", "Pigarre", 3, "2.1c");
-
-		// try to add already registered members
 
 		nbTests++;
 		nbErrors += addItemBookAlreadyExistsException(sn,
@@ -286,6 +222,7 @@ try {
 
 		// <=> test n°3
 		// memeber already exist
+
 		nbErrors += addNotMemberException(sn,
         "Antoine", "kyrian",new String("L'aventure"),
         "Aventure", "Marchand",  18, "3.1",
@@ -297,17 +234,14 @@ try {
 
         // <=> test n°4
 
-		// check that 'sn' was not modified
 		if (nbFilms != sn.nbFilms()) {
 			System.out
 					.println("Error : the number of films was unexepectedly changed by addMember()");
 			nbErrors++;
 		}
 
-		// Display final state of 'sn'
 		System.out.println("Final state of the social network : " + sn);
 
-		// Print a summary of the tests and return test results
 		try{
 			TestReport tr = new TestReport(nbTests, nbErrors);	
 			System.out.println("addItemBookTest : " + tr);
