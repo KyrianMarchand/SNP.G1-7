@@ -23,7 +23,6 @@ public class SocialNetwork implements ISocialNetwork {
 		this.books = new LinkedList<Book>();
     }
 
-<<<<<<< Updated upstream
     @Override
     public int nbMembers() {
         return members.size();
@@ -39,12 +38,15 @@ public class SocialNetwork implements ISocialNetwork {
     public int nbBooks() {
 		return books.size();
     }
-=======
-	@Override
-	public int nbMembers() {
-		return members.size();
-	}
->>>>>>> Stashed changes
+
+/**
+Adds a new member to the system.
+@param login
+@param password
+@param profile 
+@throws BadEntryException
+@throws MemberAlreadyExistsException
+*/
 
     @Override
     public void addMember(String login, String password, String profile) throws BadEntryException, MemberAlreadyExistsException {
@@ -78,9 +80,13 @@ public class SocialNetwork implements ISocialNetwork {
             ItemFilmAlreadyExistsException {
         // TODO Auto-generated method stub
 
-<<<<<<< Updated upstream
     }
 
+    /**
+     * @param login
+     * @return
+     * @throws NotMemberException
+     */
     private Member getMember(String login) throws NotMemberException {
         for (Member member : members) {
             if (member.getLogin().toLowerCase().equalsIgnoreCase(login)) {
@@ -89,33 +95,19 @@ public class SocialNetwork implements ISocialNetwork {
         }
         throw new NotMemberException("Member not found in the social network.");
     }
-=======
-	@Override
-	public void addMember(String login, String password, String profile) throws BadEntryException, MemberAlreadyExistsException {
-		if (login == null || login.trim().isEmpty()) {
-			throw new BadEntryException("Invalid login");
-		}
-		if (password == null || password.trim().isEmpty() || password.trim().length() < 4) {
-			throw new BadEntryException("Invalid password");
-		}
-		if (profile == null) {
-			throw new BadEntryException("Invalid profile");
-		}
-	
-		String trimmedLogin = login.trim();
-		for (Member member : members) {
-			if (member.getLogin().trim().equalsIgnoreCase(trimmedLogin)) {
-				throw new MemberAlreadyExistsException();
-			}
-		}
-	
-		Member newMember = new Member(trimmedLogin, password.trim(), profile.trim());
-		members.add(newMember);
-	}
-	
-	
->>>>>>> Stashed changes
 
+/**
+Adds a new book to the library.
+@param login 
+@param password
+@param title
+@param kind the kind of the book to add
+@param author
+@param nbPages
+@throws BadEntryException 
+@throws NotMemberException 
+@throws ItemBookAlreadyExistsException 
+*/
 @Override
 public void addItemBook(String login, String password, String title, String kind, String author, int nbPages) throws BadEntryException, NotMemberException, ItemBookAlreadyExistsException {
     if (login == null || login.trim().isEmpty()) {
