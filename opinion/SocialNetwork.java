@@ -39,6 +39,15 @@ public class SocialNetwork implements ISocialNetwork {
 		return books.size();
     }
 
+/**
+Adds a new member to the system.
+@param login
+@param password
+@param profile 
+@throws BadEntryException
+@throws MemberAlreadyExistsException
+*/
+
     @Override
     public void addMember(String login, String password, String profile) throws BadEntryException, MemberAlreadyExistsException {
         if (login == null || login.trim().isEmpty()) {
@@ -73,6 +82,11 @@ public class SocialNetwork implements ISocialNetwork {
 
     }
 
+    /**
+     * @param login
+     * @return
+     * @throws NotMemberException
+     */
     private Member getMember(String login) throws NotMemberException {
         for (Member member : members) {
             if (member.getLogin().toLowerCase().equalsIgnoreCase(login)) {
@@ -82,6 +96,18 @@ public class SocialNetwork implements ISocialNetwork {
         throw new NotMemberException("Member not found in the social network.");
     }
 
+/**
+Adds a new book to the library.
+@param login 
+@param password
+@param title
+@param kind the kind of the book to add
+@param author
+@param nbPages
+@throws BadEntryException 
+@throws NotMemberException 
+@throws ItemBookAlreadyExistsException 
+*/
 @Override
 public void addItemBook(String login, String password, String title, String kind, String author, int nbPages) throws BadEntryException, NotMemberException, ItemBookAlreadyExistsException {
     if (login == null || login.trim().isEmpty()) {
