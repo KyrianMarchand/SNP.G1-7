@@ -3,6 +3,7 @@ package tests;
 
 import opinion.ISocialNetwork;
 import opinion.Member;
+import opinion.Book;
 import opinion.SocialNetwork;
 import exceptions.BadEntryException;
 import exceptions.ItemBookAlreadyExistsException;

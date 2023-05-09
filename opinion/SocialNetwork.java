@@ -128,19 +128,16 @@ public void addItemBook(String login, String password, String title, String kind
     if (nbPages <= 0) {
         throw new BadEntryException("Invalid nbPages");
     }
-
     Member m = this.getMember(login);
     if (m == null || !m.getPassword().equals(password)) {
         throw new NotMemberException("The password does not match with the login of a registered member.");
     }
-
     String newTitle = title.trim().toLowerCase();
     for (Book book : books) {
         if (book.getTitle().trim().equalsIgnoreCase(newTitle)) {
             throw new ItemBookAlreadyExistsException();
         }
     }
-
     Book newBook = new Book(newTitle, kind.trim(), author.trim(), nbPages);
     books.add(newBook);
 }
