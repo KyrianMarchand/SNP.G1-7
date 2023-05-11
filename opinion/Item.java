@@ -16,4 +16,13 @@ public class Item {
     public String getTitle() {
         return title;
     }
+
+    public String getKind() {
+        return kind;
+    }
+
+    public LinkedList<Review> getReviewItemList() {
+        return reviewItemList;
+    }
+    
 }

@@ -1,14 +1,16 @@
 package opinion;
 
 public class Review {
-    private float mark;
     private String comment;
-    private Member memberReview;
+    private float mark;
+    private Member member;
+    private Item item;
 
-    public Review(float mark, String comment, Member memberReview) {
+    public Review(float mark, Member member, String comment, Item item) {
         this.mark = mark;
+        this.member = member;
         this.comment = comment;
-        this.memberReview = memberReview;
+        this.item = item;
     }
 
     public float getMark() {
@@ -17,6 +19,22 @@ public class Review {
 
     public String getComment() {
         return comment;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setMark(float mark) {
+        this.mark = mark;
     }
     
 }

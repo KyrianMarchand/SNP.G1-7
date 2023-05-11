@@ -22,4 +22,12 @@ public class Member {
     public String getPassword(){
         return this.password;
     }
+
+    public String getProfile(){
+        return this.profile;
+    }
+
+    public LinkedList<Review> getReviewMemberList() {
+        return reviewMemberList;
+    }
 }

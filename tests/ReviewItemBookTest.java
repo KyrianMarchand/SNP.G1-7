@@ -2,6 +2,7 @@ package tests;
 
 import opinion.ISocialNetwork;
 import opinion.SocialNetwork;
+import opinion.Member;
 
 import exceptions.BadEntryException;
 import exceptions.MemberAlreadyExistsException;
@@ -10,30 +11,6 @@ import exceptions.NotTestReportException;
 
 public class ReviewItemBookTest {
 
-    /**
-     * Check that trying to add this new member (login, pwd, profile) raises a
-     * BadEntry exception and does not change content of the
-     * <i>ISocialNetwork</i>. If OK, the method just returns 0. If not OK,
-     * displays an error message and returns 1.
-     * 
-     * @param sn
-     *                     - the <i>ISocialNetwork</i>
-     * @param login
-     *                     - new member's login
-     * @param pwd
-     *                     - new member's password
-     * @param profile
-     *                     - new member's profile
-     * @param testId
-     *                     - the test ID that will prefix any error message
-     *                     displayed by
-     *                     this method
-     * @param errorMessage
-     *                     - the error message that will be displayed if no
-     *                     exception is
-     *                     thrown when adding this member
-     * @return 0 if the test is OK, 1 if not
-     */
     private static int addReviewBadEntryTest(ISocialNetwork sn, String login, String pwd, String title, float mark,
             String comment, String testId, String errorMessage) {
 

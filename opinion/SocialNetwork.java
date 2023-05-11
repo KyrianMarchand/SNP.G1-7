@@ -150,13 +150,77 @@ public void addItemBook(String login, String password, String title, String kind
         return 0;
     }
 
-    @Override
-    public float reviewItemBook(String login, String password, String title,
-            float mark, String comment) throws BadEntryException,
-            NotMemberException, NotItemException {
-        // TODO Auto-generated method stub
-        return 0;
+/**
+ * @param title
+ * @return the book with the given title, or null if it does not exist
+ */
+public Book getBook(String title) {
+    for (Book book : books) {
+        if (book.getTitle().toLowerCase().equalsIgnoreCase(title)) {
+            return book;
+        }
     }
+    return null;
+}
+
+    @Override
+    public float reviewItemBook(String login, String password, String title, float mark, String comment)
+            throws BadEntryException, NotMemberException, NotItemException {
+        
+        // Check for bad entries
+        if(login == null || login.trim().length() < 1)
+            throw new BadEntryException("Invalid login");
+        if(password == null || password.trim().length() < 4)
+            throw new BadEntryException("Invalid password");
+        if(title == null || title.trim().length() < 1)
+            throw new BadEntryException("Invalid book title");
+        if(mark < 0.0f || mark > 5.0f)
+            throw new BadEntryException("Invalid mark");
+        if(comment == null)
+            throw new BadEntryException("Invalid comment");
+            
+        // Search for the member in the list of registered members
+        Member member = this.getMember(login);
+        if (member == null || !member.getPassword().equals(password)) {
+            throw new NotMemberException("The password does not match with the login of a registered member.");
+        }
+
+        // Search for the book in the list of registered books
+        Book book = this.getBook(title);
+        if(book == null)
+            throw new NotItemException("Unknown book");
+        
+        // Check if the member has already reviewed the book
+        Review review = null;
+        for(Review r : member.getReviewMemberList()) {
+            if(r.getItem().equals(book)) {
+                review = r;
+                break;
+            }
+        }
+        
+        // Create a new review if no previous review was found
+        if(review == null) {
+            review = new Review(mark, member, comment, book);
+            member.getReviewMemberList().add(review);
+            book.getReviewItemList().add(review);
+        }
+        // Update the existing review otherwise
+        else {
+            review.setMark(mark);
+            review.setComment(comment);
+        }
+        
+        // Calculate the average mark for the book
+        float avgMark = 0.0f;
+        for(Review r : book.getReviewItemList()) {
+            avgMark += r.getMark();
+        }
+        avgMark /= book.getReviewItemList().size();
+        
+        return avgMark;
+    }
+    
 
     @Override
     public LinkedList<String> consultItems(String title)
@@ -181,19 +245,23 @@ public void addItemBook(String login, String password, String title, String kind
      * @param args
      */
     public static void main(String[] args) {
-    SocialNetwork sn = new SocialNetwork();
-    try {
-        sn.addMember("Kyrian", "kyrian", "null");
-    } catch (BadEntryException | MemberAlreadyExistsException e) {
-        e.printStackTrace();
+        SocialNetwork sn = new SocialNetwork();
+        try {
+            sn.addMember("Kyrian", "kyrian", "null");
+        } catch (BadEntryException | MemberAlreadyExistsException e) {
+            e.printStackTrace();
+        }
+        try {
+            sn.addItemBook("Kyrian", "kyrian", "L'aventure", "Aventure", "moi", 18);
+        } catch (BadEntryException | NotMemberException | ItemBookAlreadyExistsException e) {
+            e.printStackTrace();
+        }
+        try {
+            sn.reviewItemBook("Kyrian", "kyrian", "L'aventure", 5, "Excellent livre !");
+        } catch (NotMemberException | BadEntryException | NotItemException e) {
+            e.printStackTrace();
+        }
+        System.out.println(sn.toString());
     }
-    try {
-        sn.addItemBook("Kyrian", "kyrian", "L'aventure", "Aventure", "moi", 18);
-    } catch (BadEntryException | NotMemberException | ItemBookAlreadyExistsException e) {
-        e.printStackTrace();
-    }
-    System.out.println(sn.toString());
-
-    }
-
 }
+    

@@ -11,4 +11,12 @@ public class Book extends Item{
         this.nbPages = nbPages;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getNbPages() {
+        return nbPages;
+    }
+
 }
