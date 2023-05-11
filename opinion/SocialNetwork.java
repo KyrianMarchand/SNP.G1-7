@@ -132,7 +132,7 @@ public void addItemBook(String login, String password, String title, String kind
     if (m == null || !m.getPassword().equals(password)) {
         throw new NotMemberException("The password does not match with the login of a registered member.");
     }
-    String newTitle = title.trim().toLowerCase();
+    String newTitle = title.trim();
     for (Book book : books) {
         if (book.getTitle().trim().equalsIgnoreCase(newTitle)) {
             throw new ItemBookAlreadyExistsException();
@@ -166,8 +166,7 @@ public Book getBook(String title) {
     @Override
     public float reviewItemBook(String login, String password, String title, float mark, String comment)
             throws BadEntryException, NotMemberException, NotItemException {
-        
-        // Check for bad entries
+    
         if(login == null || login.trim().length() < 1)
             throw new BadEntryException("Invalid login");
         if(password == null || password.trim().length() < 4)
@@ -179,18 +178,15 @@ public Book getBook(String title) {
         if(comment == null)
             throw new BadEntryException("Invalid comment");
             
-        // Search for the member in the list of registered members
         Member member = this.getMember(login);
         if (member == null || !member.getPassword().equals(password)) {
             throw new NotMemberException("The password does not match with the login of a registered member.");
         }
 
-        // Search for the book in the list of registered books
         Book book = this.getBook(title);
         if(book == null)
             throw new NotItemException("Unknown book");
         
-        // Check if the member has already reviewed the book
         Review review = null;
         for(Review r : member.getReviewMemberList()) {
             if(r.getItem().equals(book)) {
@@ -198,20 +194,18 @@ public Book getBook(String title) {
                 break;
             }
         }
-        
-        // Create a new review if no previous review was found
+    
         if(review == null) {
             review = new Review(mark, member, comment, book);
             member.getReviewMemberList().add(review);
             book.getReviewItemList().add(review);
         }
-        // Update the existing review otherwise
+
         else {
             review.setMark(mark);
             review.setComment(comment);
         }
         
-        // Calculate the average mark for the book
         float avgMark = 0.0f;
         for(Review r : book.getReviewItemList()) {
             avgMark += r.getMark();
@@ -221,11 +215,19 @@ public Book getBook(String title) {
         return avgMark;
     }
     
-
     @Override
-    public LinkedList<String> consultItems(String title)
-            throws BadEntryException {
-        return new LinkedList<String>();
+    public LinkedList<String> consultItems(String title) throws BadEntryException {
+        if (title == null || title.trim().length() == 0) {
+            throw new BadEntryException("Title is not instantiated or contains less than one non-space character");
+        }
+        LinkedList<String> result = new LinkedList<>();
+        for (Book book : books) {
+            if (book.getTitle().trim().toLowerCase().contains(title.toLowerCase())) {
+                String itemStr = book.getTitle() + " - " + book.getKind() + " - Score: " + book.getAverageScore();
+                result.add(itemStr);
+            }
+        }
+        return result;
     }
 
     public String toString() {
@@ -236,32 +238,37 @@ public Book getBook(String title) {
         }
         result += "Books: ";
         for (Book book : books) {
-            result += book.getTitle();
+            result += book.getTitle()+ "\n";
         }
         return result;
     }
 
     /**
      * @param args
+     * @throws BadEntryException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BadEntryException {
         SocialNetwork sn = new SocialNetwork();
         try {
             sn.addMember("Kyrian", "kyrian", "null");
+            sn.addMember("Tommy", "tommy", "null");
         } catch (BadEntryException | MemberAlreadyExistsException e) {
             e.printStackTrace();
         }
         try {
             sn.addItemBook("Kyrian", "kyrian", "L'aventure", "Aventure", "moi", 18);
+            sn.addItemBook("Kyrian", "kyrian", "La police", "Policier", "moi", 32);
         } catch (BadEntryException | NotMemberException | ItemBookAlreadyExistsException e) {
             e.printStackTrace();
         }
         try {
             sn.reviewItemBook("Kyrian", "kyrian", "L'aventure", 5, "Excellent livre !");
+            sn.reviewItemBook("Tommy", "tommy", "L'aventure", 3, "Livre moyen.");
         } catch (NotMemberException | BadEntryException | NotItemException e) {
             e.printStackTrace();
         }
         System.out.println(sn.toString());
+        System.out.println(sn.consultItems("L'aventure"));
     }
 }
     

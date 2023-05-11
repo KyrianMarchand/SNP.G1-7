@@ -25,4 +25,14 @@ public class Item {
         return reviewItemList;
     }
     
+    public double getAverageScore() {
+        if (reviewItemList.isEmpty()) {
+            return 0;
+        }
+        int sum = 0;
+        for (Review review : reviewItemList) {
+            sum += review.getMark();
+        }
+        return (double) sum / reviewItemList.size();
+    }
 }
