@@ -110,7 +110,7 @@ public class SocialNetwork implements ISocialNetwork {
         if (scenarist == null) {
             throw new BadEntryException("Invalid scenarist");
         }
-        if (duration < 0) {
+        if (duration <= 0) {
             throw new BadEntryException("Invalid duration");
         }
         Member m = this.getMember(login);

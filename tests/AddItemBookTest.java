@@ -2,8 +2,6 @@
 package tests;
 
 import opinion.ISocialNetwork;
-import opinion.Member;
-import opinion.Book;
 import opinion.SocialNetwork;
 import exceptions.BadEntryException;
 import exceptions.ItemBookAlreadyExistsException;
@@ -163,7 +161,6 @@ public class AddItemBookTest {
 
 		// Get the current number of books and films in the social network
 		int nbBooks = sn.nbBooks();
-		int nbFilms = sn.nbFilms();
 
 		// Initialize variables to track number of tests and errors
 		int nbTests = 0;
@@ -183,7 +180,7 @@ public class AddItemBookTest {
 		// Test #1: addBookBadEntryTest()
 		nbTests++;
 		nbErrors += addBookBadEntryTest(sn, null, "pass", "Titre", "Aventure",
-				"Kyrian", 3, "1.1", "addItemBook() doesn't reject null passwords");
+				"Kyrian", 3, "1.1", "addItemBook() doesn't reject null login");
 		nbTests++;
 		nbErrors += addBookBadEntryTest(
 				sn, " ", "pass", "Titre", "Aventure",
@@ -218,15 +215,23 @@ public class AddItemBookTest {
 				sn, "B", "pass", "title", "Aventure",
 				"Kyrian", 0, "1.8",
 				"addItemBook() doesn't reject <0 nbPages)");
+		nbTests++;
+		nbErrors += addBookBadEntryTest(
+				sn, "B", "pass", "title", null,
+				"Kyrian", 3, "1.9",
+				"addItemBook() doesn't reject null kind)");
 
 		// <=> test n°2
 
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Kyrian", "kyrian", "L'aventure", "Aventure", "Marchand", 18, "2.1a");
+		nbBooks++;
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Tommy", "tommy", "La boulangerie", "Policier", "Girardi", 22, "2.1b");
+		nbBooks++;
 		nbTests++;
 		nbErrors += addBookOKTest(sn, "Marin", "marin", "IMT Atlantique", "Fantastique", "Pigarre", 3, "2.1c");
+		nbBooks++;
 
 		nbTests++;
 		nbErrors += addItemBookAlreadyExistsException(sn,
@@ -270,9 +275,9 @@ public class AddItemBookTest {
 		// <=> test n°4
 
 		// Check if the number of films has changed unexpectedly
-		if (nbFilms != sn.nbFilms()) {
+		if (nbBooks != sn.nbBooks()) {
 			System.out
-					.println("Error : the number of films was unexepectedly changed by addMember()");
+					.println("Error : the number of films was unexepectedly changed by addBook()");
 			nbErrors++;
 		}
 
