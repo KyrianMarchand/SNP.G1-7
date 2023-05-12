@@ -15,18 +15,30 @@ public class Member {
         reviewMemberList = new LinkedList<Review>();
     }
 
-    public String getLogin(){
+    /**
+     * @return String
+     */
+    public String getLogin() {
         return this.login;
     }
 
-    public String getPassword(){
+    /**
+     * @return String
+     */
+    public String getPassword() {
         return this.password;
     }
 
-    public String getProfile(){
+    /**
+     * @return String
+     */
+    public String getProfile() {
         return this.profile;
     }
 
+    /**
+     * @return LinkedList<Review>
+     */
     public LinkedList<Review> getReviewMemberList() {
         return reviewMemberList;
     }

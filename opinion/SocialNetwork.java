@@ -25,16 +25,25 @@ public class SocialNetwork implements ISocialNetwork {
         this.films = new LinkedList<Film>();
     }
 
+    /**
+     * @return int
+     */
     @Override
     public int nbMembers() {
         return members.size();
     }
 
+    /**
+     * @return int
+     */
     @Override
     public int nbFilms() {
         return films.size();
     }
 
+    /**
+     * @return int
+     */
     @Override
     public int nbBooks() {
         return books.size();
@@ -249,7 +258,7 @@ public class SocialNetwork implements ISocialNetwork {
      * @param title
      * @return the film with the given title, or null if it does not exist
      */
-    public Film getFilm(String title) throws NotItemException {
+    private Film getFilm(String title) throws NotItemException {
         for (Film film : films) {
             if (film.getTitle().toLowerCase().equalsIgnoreCase(title)) {
                 return film;
@@ -262,7 +271,7 @@ public class SocialNetwork implements ISocialNetwork {
      * @param title
      * @return the book with the given title, or null if it does not exist
      */
-    public Book getBook(String title) throws NotItemException {
+    private Book getBook(String title) throws NotItemException {
         for (Book book : books) {
             if (book.getTitle().toLowerCase().equalsIgnoreCase(title)) {
                 return book;
@@ -338,15 +347,24 @@ public class SocialNetwork implements ISocialNetwork {
         }
         LinkedList<String> result = new LinkedList<>();
         try {
-            // if a Book match with the title, he has been added in list
             Book BookAjout = getBook(title);
             if (!BookAjout.equals(null))
-                result.add(BookAjout.getTitle() + " - " + BookAjout.getKind() + " - Score: "
-                        + BookAjout.getAverageScore());
+                result.add(
+                        "The book " + BookAjout.getTitle() + " - Kind : " + BookAjout.getKind() + " - has a score of : "
+                                + BookAjout.getAverageScore() + "\n");
         } catch (NotItemException e) {
-            result.add(title + " Book not found in SocialNetwork.");
-            e.printStackTrace();
+            result.add(title + " Book not found in SocialNetwork");
         }
+        try {
+            Film filmAjout = getFilm(title);
+            if (!filmAjout.equals(null))
+                result.add(
+                        "The film " + filmAjout.getTitle() + " - Kind : " + filmAjout.getKind() + " - has a score of : "
+                                + filmAjout.getAverageScore());
+        } catch (NotItemException e) {
+            result.add(title + " Film not found in SocialNetwork");
+        }
+
         return result;
     }
 
@@ -376,8 +394,9 @@ public class SocialNetwork implements ISocialNetwork {
     /**
      * @param args
      * @throws BadEntryException
+     * @throws ItemFilmAlreadyExistsException
      */
-    public static void main(String[] args) throws BadEntryException {
+    public static void main(String[] args) throws BadEntryException, ItemFilmAlreadyExistsException {
         SocialNetwork sn = new SocialNetwork();
         try {
             sn.addMember("Kyrian", "kyrian", "null");
@@ -387,16 +406,20 @@ public class SocialNetwork implements ISocialNetwork {
         }
         try {
             sn.addItemBook("Kyrian", "kyrian", "La boulangerie", "Aventure", "moi", 18);
+            sn.addItemFilm("Kyrian", "kyrian", "La boulangerie", "Aventure", "moi", "null", 18);
             sn.addItemBook("Kyrian", "kyrian", "La police", "Policier", "moi", 32);
         } catch (BadEntryException | NotMemberException | ItemBookAlreadyExistsException e) {
             e.printStackTrace();
         }
         try {
             sn.reviewItemBook("Kyrian", "kyrian", "La boulangerie", 5, "Excellent livre !");
+            sn.reviewItemFilm("Kyrian", "kyrian", "La boulangerie", 2, "Film nul...");
             sn.reviewItemBook("Tommy", "tommy", "La boulangerie", 3, "Livre moyen.");
+            sn.reviewItemBook("Tommy", "tommy", "La boulangerie", 1, "Vraiment moyen.");
             System.out.println(sn.consultItems("la"));
             sn.reviewItemBook("Kyrian", "kyrian", "La boulangerie", 2, "Enfaite moyen...");
-            System.out.println(sn.consultItems("La boulangerie"));
+            System.out.println(sn.consultItems("la bouLangerie"));
+            System.out.println(sn.consultItems("la police"));
             System.out.println(sn.toString());
         } catch (NotMemberException | BadEntryException | NotItemException e) {
             e.printStackTrace();

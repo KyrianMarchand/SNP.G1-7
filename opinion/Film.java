@@ -12,14 +12,23 @@ public class Film extends Item {
         this.duration = duration;
     }
 
+    /**
+     * @return String
+     */
     public String getDirector() {
         return director;
     }
 
+    /**
+     * @return String
+     */
     public String getScenarist() {
         return scenarist;
     }
 
+    /**
+     * @return int
+     */
     public int getDuration() {
         return duration;
     }
