@@ -17,10 +17,12 @@ public class SocialNetwork implements ISocialNetwork {
 
     private LinkedList<Member> members;
     private LinkedList<Book> books;
+    private LinkedList<Film> films;
 
     public SocialNetwork() {
         this.members = new LinkedList<Member>();
         this.books = new LinkedList<Book>();
+        this.films = new LinkedList<Film>();
     }
 
     @Override
@@ -75,11 +77,42 @@ public class SocialNetwork implements ISocialNetwork {
 
     @Override
     public void addItemFilm(String login, String password, String title,
-            String kind, String director, String scriptwriter, int duration)
+            String kind, String director, String scenarist, int duration)
             throws BadEntryException, NotMemberException,
             ItemFilmAlreadyExistsException {
-        // TODO Auto-generated method stub
-
+        if (login == null || login.trim().isEmpty()) {
+            throw new BadEntryException("Invalid login");
+        }
+        if (password == null || password.trim().length() < 4) {
+            throw new BadEntryException("Invalid password");
+        }
+        if (title == null || title.trim().isEmpty()) {
+            throw new BadEntryException("Invalid title");
+        }
+        if (kind == null) {
+            throw new BadEntryException("Invalid kind");
+        }
+        if (director == null) {
+            throw new BadEntryException("Invalid director");
+        }
+        if (scenarist == null) {
+            throw new BadEntryException("Invalid scenarist");
+        }
+        if (duration < 0) {
+            throw new BadEntryException("Invalid duration");
+        }
+        Member m = this.getMember(login);
+        if (m == null || !m.getPassword().equals(password)) {
+            throw new NotMemberException("The password does not match with the login of a registered member.");
+        }
+        String newTitle = title.trim();
+        for (Film film : films) {
+            if (film.getTitle().trim().equalsIgnoreCase(newTitle)) {
+                throw new ItemFilmAlreadyExistsException();
+            }
+        }
+        Film newFilm = new Film(newTitle, kind.trim(), director.trim(), scenarist.trim(), duration);
+        films.add(newFilm);
     }
 
     /**

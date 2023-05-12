@@ -124,7 +124,7 @@ public class ConsultItemTest {
             TestReport tr = new TestReport(nbTests, nbErrors);
             System.out.println("ConsultItemTest : " + tr);
             return tr;
-        } catch (NotTestReportException e) { // This shouldn't happen
+        } catch (NotTestReportException e) {
             System.out.println("Unexpected error in ConsultItemTest test code - Can't return valuable test results");
             return null;
         }
