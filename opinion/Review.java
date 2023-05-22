@@ -1,16 +1,21 @@
 package opinion;
 
+import java.util.LinkedList;
+
 public class Review {
     private String comment;
     private float mark;
-    private Member member;
+    private Member reviewer;
     private Item item;
+    private LinkedList<Opinion> opinions;
 
-    public Review(float mark, Member member, String comment, Item item) {
+
+    public Review(float mark, Member reviewer, String comment, Item item) {
         this.mark = mark;
-        this.member = member;
+        this.reviewer = reviewer;
         this.comment = comment;
         this.item = item;
+        this.opinions = new LinkedList<Opinion>();
     }
 
     public float getMark() {
@@ -21,8 +26,8 @@ public class Review {
         return comment;
     }
 
-    public Member getMember() {
-        return member;
+    public Member getReviewer() {
+        return reviewer;
     }
 
     public Item getItem() {
@@ -36,5 +41,12 @@ public class Review {
     public void setMark(float mark) {
         this.mark = mark;
     }
-    
+
+    public LinkedList<Opinion> getOpinions() {
+        return opinions;
+    }
+
+    public void addOpinions(Opinion o) {
+        opinions.add(o);
+    }
 }
