@@ -264,7 +264,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
                 return film;
             }
         }
-        throw new NotItemException("Book not found in the social network.");
+        throw new NotItemException("Film not found in the social network.");
     }
 
     /**
@@ -376,7 +376,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
         result += "Members:\n";
         for (int i = 0; i < members.size(); i++) {
             Member member = members.get(i);
-            result += "- " + member.getLogin() + "\n";
+            result += "- " + member.getLogin() + " a un karma de : " +member.getKarma()+ "\n";
         }
         result += "\nBooks:\n";
         for (int i = 0; i < books.size(); i++) {
@@ -440,12 +440,12 @@ public class SocialNetwork implements ISocialNetworkPremium {
 
         LinkedList<Review> reviews = new LinkedList<Review>();
 
-        if (category.equals("film")) {
+        if (category.trim().toLowerCase().equals("film")) {
             Film film = this.getFilm(title);
             if (film == null)
                 throw new NotItemException("Unknown film");
             reviews = film.getReviewItemList();
-        } else {
+        } else if (category.trim().toLowerCase().equals("book")){
             Book book = this.getBook(title);
             if (book == null)
                 throw new NotItemException("Unknown book");
@@ -457,15 +457,14 @@ public class SocialNetwork implements ISocialNetworkPremium {
             Opinion myOpinion = null;
 
             try {
-                myOpinion = reviewToComment.CheckOpinion(login);
-            } catch (Exception e) {
-            }
+                myOpinion = reviewToComment.checkOpinion(login);
+            } catch (Exception e) {}
 
             if (reviewToComment != null && myOpinion == null) {
-                Opinion o = new Opinion(mark, member);
-                reviewToComment.addOpinion(o);
+                Opinion opinion = new Opinion(mark, member);
+                reviewToComment.addOpinion(opinion);
             } else if (reviewToComment != null && myOpinion != null) {
-                myOpinion.modifyOpinion(mark);
+                myOpinion.setMark(mark);
             } else {
                 throw new BadEntryException("No review exist.");
             }
@@ -488,27 +487,32 @@ public class SocialNetwork implements ISocialNetworkPremium {
             sn.addMember("Kyrian", "kyrian", "null");
             sn.addMember("Tommy", "tommy", "null");
             sn.addMember("Marin", "marin", "null");
+            sn.addMember("Theo", "theo", "null");
         } catch (BadEntryException | MemberAlreadyExistsException e) {
             e.printStackTrace();
         }
         try {
             sn.addItemBook("Kyrian", "kyrian", "La boulangerie", "Aventure", "moi", 18);
-            sn.addItemFilm("Kyrian", "kyrian", "La boulangerie", "Aventure", "moi", "null", 18);
-            sn.addItemBook("Kyrian", "kyrian", "La police", "Policier", "moi", 32);
+            sn.addItemBook("Tommy", "tommy", "La police", "Policier", "lui", 12);
+            sn.addItemFilm("Kyrian", "kyrian", "FightClub", "Aventure", "moi", "null", 28);
+            sn.addItemFilm("Tommy", "tommy", "HitMan", "Policier", "lui", "null", 12);
         } catch (BadEntryException | NotMemberException | ItemBookAlreadyExistsException e) {
             e.printStackTrace();
         }
         try {
             sn.reviewItemBook("Kyrian", "kyrian", "La boulangerie", 5, "Excellent livre !");
-            sn.reviewItemFilm("Kyrian", "kyrian", "La boulangerie", 2, "Film nul...");
             sn.reviewItemBook("Tommy", "tommy", "La boulangerie", 3, "Livre moyen.");
             sn.reviewItemBook("Tommy", "tommy", "La boulangerie", 1, "Vraiment moyen.");
-            System.out.println(sn.consultItems("la"));
             sn.reviewItemBook("Kyrian", "kyrian", "La boulangerie", 2, "Enfaite moyen...");
-            System.out.println(sn.consultItems("la bouLangerie"));
-            System.out.println(sn.consultItems("la police"));
+            sn.reviewItemFilm("Tommy", "tommy", "HitMan", 3, "Le film etait passable");
+
             sn.reviewOpinion("Tommy", "tommy", 5, "book", "La boulangerie", "Kyrian");
-            System.out.println(sn.reviewOpinion("Marin", "marin", 1, "book", "La boulangerie", "Kyrian"));
+            sn.reviewOpinion("Marin", "marin", 1, "book", "La boulangerie", "Kyrian");
+            sn.reviewOpinion("Theo", "theo", 1, "book", "La boulangerie", "Kyrian");
+            sn.reviewOpinion("Theo", "theo", 3, "book", "La boulangerie", "Kyrian");
+            sn.reviewOpinion("Theo", "theo", 1, "film", "HitMan", "Tommy");
+
+            System.out.println(sn.toString());
 
         } catch (NotMemberException | BadEntryException | NotItemException e) {
             e.printStackTrace();

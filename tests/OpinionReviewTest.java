@@ -53,11 +53,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Marin", "kyrian", 3, "Book", "La Boulangerie", "Tommy");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with bad login (category Book)");
+                System.out.println("Err 2.1: add opinion with bad login (category Book)");
                 testErr[1]++;
             }
         } catch (NotMemberException e) {
-            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            System.out.println("OK 2.1: NotMemberException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -67,11 +67,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Marin", "kyrian", 3, "Film", "FightClub", "Tommy");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with bad login (category Film)");
+                System.out.println("Err 2.2: add opinion with bad login (category Film)");
                 testErr[1]++;
             }
         } catch (NotMemberException e) {
-            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            System.out.println("OK 2.2: NotMemberException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -81,11 +81,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Kyrian", "blabla", 3, "Book", "La Boulangerie", "Tommy");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with bad password (category Book)");
+                System.out.println("Err 2.3: add opinion with bad password (category Book)");
                 testErr[1]++;
             }
         } catch (NotMemberException e) {
-            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            System.out.println("OK 2.3: NotMemberException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -95,11 +95,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Kyrian", "blabla", 3, "Film", "FightClub", "Tommy");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with bad password (category Film)");
+                System.out.println("Err 2.4: add opinion with bad password (category Film)");
                 testErr[1]++;
             }
         } catch (NotMemberException e) {
-            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            System.out.println("OK 2.4: NotMemberException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -109,11 +109,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Book", "La Boulangerie", "Marin");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with bad reviewer (category Book)");
+                System.out.println("Err 2.5: add opinion with bad reviewer (category Book)");
                 testErr[1]++;
             }
         } catch (NotMemberException e) {
-            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            System.out.println("OK 2.5: NotMemberException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -123,11 +123,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "FightClub", "Marin");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with bad reviewer (category Film)");
+                System.out.println("Err 2.6: add opinion with bad reviewer (category Film)");
                 testErr[1]++;
             }
         } catch (NotMemberException e) {
-            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            System.out.println("OK 2.6: NotMemberException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -139,11 +139,11 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Book", "Le Livre", "Tommy");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with book that doesn't exist.");
+                System.out.println("Err 3.1: add opinion with book that doesn't exist.");
                 testErr[1]++;
             }
         } catch (NotItemException e) {
-            System.out.println("OK 1.5: NotItemException has been successfully catched");
+            System.out.println("OK 3.1: NotItemException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
@@ -153,26 +153,27 @@ public class OpinionReviewTest {
         try {
             aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "Le Film", "Tommy");
             if (aver == 3) {
-                System.out.println("Err 1.5: add opinion with film that doesn't exist.");
+                System.out.println("Err 3.2: add opinion with film that doesn't exist.");
                 testErr[1]++;
             }
         } catch (NotItemException e) {
-            System.out.println("OK 1.5: NotItemException has been successfully catched");
+            System.out.println("OK 3.2: NotItemException has been successfully catched");
             testErr[0]++;
         } catch (Exception e) {
             System.out.println(e);
             testErr[1]++;
         }
 
-        System.out.println("Testing Average");
+        System.out.println("Testing Average()");
 
         try {
-            aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "Le Film", "Tommy");
-            if (aver == 3) {
-                System.out.println("1.1 OK -> the login add mark");
+            aver = sn.reviewOpinion("Tommy", "tommy", 5, "Book", "La boulangerie", "Kyrian");
+            if (aver == 5) {
+                System.out.println("OK 4.1: The mean is correct.");
                 testErr[0]++;
             } else {
-                System.out.println("Err 1.1 : err add opinion");
+                System.out.println(aver);
+                System.out.println("Err 4.1: err mean is uncorrect.");
                 testErr[1]++;
             }
         } catch (Exception e) {
@@ -181,12 +182,13 @@ public class OpinionReviewTest {
         }
 
         try {
-            aver = sn.reviewOpinion("Kyrian", "kyrian", 1, "Film", "Le Film", "Tommy");
+            aver = sn.reviewOpinion("Tommy", "tommy", 1, "Book", "La boulangerie", "Kyrian");
             if (aver == 1) {
-                System.out.println("1.2 OK -> the login change his mark and the average mark has been changed");
+                System.out.println("OK 4.2: the login change his mark and the average mark has been changed.");
                 testErr[0]++;
             } else {
-                System.out.println("Err 1.2 : err add opinion");
+                System.out.println(aver);
+                System.out.println("Err 4.2: err mean is uncorrect.");
                 testErr[1]++;
             }
         } catch (Exception e) {
@@ -195,12 +197,12 @@ public class OpinionReviewTest {
         }
 
         try {
-            aver = sn.reviewOpinion("Tommy", "tommy", 5, "Film", "Le Film", "Tommy");
+            aver = sn.reviewOpinion("Paul", "paul", 5, "Book", "La boulangerie", "Kyrian");
             if (aver == 3) {
-                System.out.println("1.3 OK -> other login add a mark and the average mark has been changed");
+                System.out.println("OK 4.3: The mean is correct.");
                 testErr[0]++;
             } else {
-                System.out.println("Err 1.3 : err add opinion");
+                System.out.println("Err 4.3: err mean is uncorrect.");
                 testErr[1]++;
             }
         } catch (Exception e) {
@@ -209,12 +211,12 @@ public class OpinionReviewTest {
         }
 
         try {
-            aver = sn.reviewOpinion("Tommy", "tommy", 1, "Film", "Le Film", "Tommy");
-            if (aver == 1) {
-                System.out.println("1.4 OK -> other login change his mark and the average mark has been changed");
+            aver = sn.reviewOpinion("Paul", "paul", 3, "Book", "la boulangerie", "Kyrian");
+            if (aver == 2) {
+                System.out.println("OK 4.4: other login change his mark and the average mark has been changed.");
                 testErr[0]++;
             } else {
-                System.out.println("Err 1.4 : err add opinion");
+                System.out.println("Err 4.4: err mean is uncorrect.");
                 testErr[1]++;
             }
         } catch (Exception e) {
@@ -225,6 +227,7 @@ public class OpinionReviewTest {
         return testErr;
 
     }
+    
 
     public static TestReport test() {
 
@@ -238,12 +241,16 @@ public class OpinionReviewTest {
         try {
             sn.addMember("Kyrian", "kyrian", "profile");
             sn.addMember("Tommy", "tommy", "profile");
+            sn.addMember("Paul", "paul", "profile");
             sn.addItemBook("Kyrian", "kyrian", "La Boulangerie", "Aventure", "moi", 28);
             sn.addItemBook("Tommy", "tommy", "La police", "Policier", "lui", 12);
-            sn.addItemFilm("Kyrian", "kyrian", "FightClub", "Aventure", "moi", null, 28);
-            sn.addItemFilm("Tommy", "tommy", "HitMan", "Policier", "lui", null, 12);
-            sn.reviewItemBook("Kyrian", "kyrian", "La Boulangerie", 5, "Très bon livre");
-            sn.reviewItemFilm("Tommy", "tommy", "HitMan", 3, "Le film etait passable");
+            sn.addItemFilm("Kyrian", "kyrian", "FightClub", "Aventure", "moi", "null", 28);
+            sn.addItemFilm("Tommy", "tommy", "HitMan", "Policier", "lui", "null", 12);
+            sn.reviewItemBook("Kyrian", "kyrian", "La boulangerie", 5, "Excellent livre !");
+            sn.reviewItemBook("Tommy", "tommy", "La boulangerie", 3, "Livre moyen.");
+            sn.reviewItemFilm("Tommy", "tommy", "HitMan", 5, "Le film etait passable");
+
+    
         } catch (BadEntryException e1) {
             e1.printStackTrace();
         } catch (NotMemberException e1) {
