@@ -49,7 +49,7 @@ public class Review {
         opinions.add(o);
     }
 
-    public Opinion CheckOpinion(String reviewer) {
+    public Opinion checkOpinion(String reviewer) {
         for (Opinion opinion : opinions) {
             if (opinion.getReviewer().equals(reviewer)) {
                 return opinion;
