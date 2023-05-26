@@ -9,7 +9,6 @@ public class Review {
     private Item item;
     private LinkedList<Opinion> opinions;
 
-
     public Review(float mark, Member reviewer, String comment, Item item) {
         this.mark = mark;
         this.reviewer = reviewer;
@@ -48,5 +47,26 @@ public class Review {
 
     public void addOpinions(Opinion o) {
         opinions.add(o);
+    }
+
+    public Opinion CheckOpinion(String reviewer) {
+        for (Opinion opinion : opinions) {
+            if (opinion.getReviewer().equals(reviewer)) {
+                return opinion;
+            }
+        }
+        return null;
+    }
+
+    public void addOpinion(Opinion o) {
+        opinions.add(o);
+    }
+
+    public float meanOpinion() {
+        float mean = 0;
+        for (int i = 0; i < opinions.size(); i++) {
+            mean += opinions.get(i).getMark();
+        }
+        return mean / opinions.size();
     }
 }

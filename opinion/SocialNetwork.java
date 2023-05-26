@@ -391,6 +391,92 @@ public class SocialNetwork implements ISocialNetworkPremium {
         return result;
     }
 
+    private Review getReview(LinkedList<Review> reviews, String login) throws NotItemException {
+        for (Review review : reviews) {
+            if (review.getReviewer().getLogin().equals(login)) {
+                return review;
+            }
+        }
+        throw new NotItemException("Reviewer not in SocialNetwork");
+    }
+
+    public float reviewOpinion(String login, String password, float mark, String category, String title,
+            String reviewer) throws BadEntryException, NotMemberException, NotItemException {
+        float ret = 0;
+        if (login == null || login.trim().isEmpty()) {
+            throw new BadEntryException("Invalid login");
+        }
+
+        if (password == null || password.trim().length() < 4) {
+            throw new BadEntryException("Invalid password");
+        }
+
+        if (title == null || title.trim().isEmpty()) {
+            throw new BadEntryException("Invalid title");
+        }
+
+        if (mark < 0.0 || mark > 5.0) {
+            throw new BadEntryException("Invalid mark");
+        }
+
+        if (category == null
+                || (!category.trim().toLowerCase().equals("film") && !category.trim().toLowerCase().equals("book"))) {
+            throw new BadEntryException("Invalid category");
+        }
+
+        if (reviewer == null || reviewer.trim().isEmpty()) {
+            throw new BadEntryException("Invalid reviewer");
+        }
+
+        Member member = this.getMember(login);
+        if (member == null || !member.getPassword().equals(password)) {
+            throw new NotMemberException("The password does not match with the login of a registered member.");
+        }
+
+        Member reviewers = this.getMember(reviewer);
+        if (reviewers == null) {
+            throw new NotMemberException("The reviewer does not exist.");
+        }
+
+        LinkedList<Review> reviews = new LinkedList<Review>();
+
+        if (category.equals("film")) {
+            Film film = this.getFilm(title);
+            if (film == null)
+                throw new NotItemException("Unknown film");
+            reviews = film.getReviewItemList();
+        } else {
+            Book book = this.getBook(title);
+            if (book == null)
+                throw new NotItemException("Unknown book");
+            reviews = book.getReviewItemList();
+        }
+
+        if (!reviews.isEmpty()) {
+            Review reviewToComment = getReview(reviews, reviewer);
+            Opinion myOpinion = null;
+
+            try {
+                myOpinion = reviewToComment.CheckOpinion(login);
+            } catch (Exception e) {
+            }
+
+            if (reviewToComment != null && myOpinion == null) {
+                Opinion o = new Opinion(mark, member);
+                reviewToComment.addOpinion(o);
+            } else if (reviewToComment != null && myOpinion != null) {
+                myOpinion.modifyOpinion(mark);
+            } else {
+                throw new BadEntryException("No review exist.");
+            }
+
+            reviewToComment.getReviewer().computeKarma();
+            ret = reviewToComment.meanOpinion();
+
+        }
+        return ret;
+    }
+
     /**
      * @param args
      * @throws BadEntryException
@@ -401,6 +487,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
         try {
             sn.addMember("Kyrian", "kyrian", "null");
             sn.addMember("Tommy", "tommy", "null");
+            sn.addMember("Marin", "marin", "null");
         } catch (BadEntryException | MemberAlreadyExistsException e) {
             e.printStackTrace();
         }
@@ -420,16 +507,11 @@ public class SocialNetwork implements ISocialNetworkPremium {
             sn.reviewItemBook("Kyrian", "kyrian", "La boulangerie", 2, "Enfaite moyen...");
             System.out.println(sn.consultItems("la bouLangerie"));
             System.out.println(sn.consultItems("la police"));
-            System.out.println(sn.toString());
+            sn.reviewOpinion("Tommy", "tommy", 5, "book", "La boulangerie", "Kyrian");
+            System.out.println(sn.reviewOpinion("Marin", "marin", 1, "book", "La boulangerie", "Kyrian"));
+
         } catch (NotMemberException | BadEntryException | NotItemException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public float reviewOpinion(String login, String password, float mark, String category, String title,
-            String reviewer) throws BadEntryException, NotMemberException, NotItemException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reviewOpinion'");
     }
 }
