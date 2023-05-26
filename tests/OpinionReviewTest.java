@@ -12,166 +12,228 @@ import opinion.ISocialNetworkPremium;
 import opinion.SocialNetwork;
 
 public class OpinionReviewTest {
-    
-        private static int addOpinionReviewTest(ISocialNetworkPremium sn, String login, String password, float mark, String category, String title, 
-                String reviewer,String testId, String errorMessage) {
-            
-            try {
-                sn.reviewOpinion(login, password, mark, category, title, reviewer);
-                System.out.println("Err " + testId + " : " + errorMessage);
-                                                    
-                return 1;
-            
-            } catch (BadEntryException e) { 
-                System.out.println("Test "+ testId+ " : BadEntryExeption was thrown " +e);
-                return 0;
-                
-            } catch (NotMemberException e) { 
-                System.out.println("Test "+ testId+ " : NotMemberException was thrown " +e);
-                return 0;
 
-            } catch (NotItemException e) {
-                System.out.println("Test "+ testId+ " : NotItemException was thrown " +e);
-                return 0;
-                
-            } catch (Exception e) {
-            
-                System.out.println("Test " + testId + " : unexpected exception. "+ e); 
-                return 1;
-            }
-            
+    private static int addOpinionReviewTest(ISocialNetworkPremium sn, String login, String password, float mark,
+            String category, String title,
+            String reviewer, String testId, String errorMessage) {
+
+        try {
+            sn.reviewOpinion(login, password, mark, category, title, reviewer);
+            System.out.println("Err " + testId + " : " + errorMessage);
+
+            return 1;
+
+        } catch (BadEntryException e) {
+            System.out.println("Test " + testId + " : BadEntryExeption was thrown " + e);
+            return 0;
+
+        } catch (NotMemberException e) {
+            System.out.println("Test " + testId + " : NotMemberException was thrown " + e);
+            return 0;
+
+        } catch (NotItemException e) {
+            System.out.println("Test " + testId + " : NotItemException was thrown " + e);
+            return 0;
+
+        } catch (Exception e) {
+
+            System.out.println("Test " + testId + " : unexpected exception. " + e);
+            return 1;
         }
 
-        private static int[] MeanOpinionReview(ISocialNetworkPremium sn) {
+    }
 
-            float aver = 0;
-            int testErr[] = { 0, 0 };
+    private static int[] MeanOpinionReview(ISocialNetworkPremium sn) {
 
-            System.out.println("Testing NotMemberException()"); 
+        float aver = 0;
+        int testErr[] = { 0, 0 };
 
-            try {
-                aver = sn.reviewOpinion("Marin", "kyrian", 3, "Book", "La Boulangerie", "Tommy");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with bad login (category Book)");
-                    testErr[1]++;
-                }
-            } catch (NotMemberException e) {
-                System.out.println("OK 1.5: NotMemberException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
+        System.out.println("Testing NotMemberException()");
+
+        try {
+            aver = sn.reviewOpinion("Marin", "kyrian", 3, "Book", "La Boulangerie", "Tommy");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with bad login (category Book)");
                 testErr[1]++;
             }
-
-            try {
-                aver = sn.reviewOpinion("Marin", "kyrian", 3, "Film", "FightClub", "Tommy");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with bad login (category Film)");
-                    testErr[1]++;
-                }
-            } catch (NotMemberException e) {
-                System.out.println("OK 1.5: NotMemberException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
-
-            try {
-                aver = sn.reviewOpinion("Kyrian", "blabla", 3, "Book", "La Boulangerie", "Tommy");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with bad password (category Book)");
-                    testErr[1]++;
-                }
-            } catch (NotMemberException e) {
-                System.out.println("OK 1.5: NotMemberException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
-
-            try {
-                aver = sn.reviewOpinion("Kyrian", "blabla", 3, "Film", "FightClub", "Tommy");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with bad password (category Film)");
-                    testErr[1]++;
-                }
-            } catch (NotMemberException e) {
-                System.out.println("OK 1.5: NotMemberException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
-
-            try {
-                aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Book", "La Boulangerie", "Marin");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with bad reviewer (category Book)");
-                    testErr[1]++;
-                }
-            } catch (NotMemberException e) {
-                System.out.println("OK 1.5: NotMemberException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
-
-            try {
-                aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "FightClub", "Marin");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with bad reviewer (category Film)");
-                    testErr[1]++;
-                }
-            } catch (NotMemberException e) {
-                System.out.println("OK 1.5: NotMemberException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
-    
-            System.out.println("Testing NotItemException()"); 
-
-            try {
-                aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Book", "Le Livre", "Tommy");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with book that doesn't exist.");
-                    testErr[1]++;
-                }
-            } catch (NotItemException e) {
-                System.out.println("OK 1.5: NotItemException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
-
-            try {
-                aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "Le Film", "Tommy");
-                if (aver == 3) {
-                    System.out.println("Err 1.5: add opinion with film that doesn't exist.");
-                    testErr[1]++;
-                }
-            } catch (NotItemException e) {
-                System.out.println("OK 1.5: NotItemException has been successfully catched");
-                testErr[0]++;
-            } catch (Exception e) {
-                System.out.println(e);
-                testErr[1]++;
-            }
+        } catch (NotMemberException e) {
+            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
         }
 
-        public static TestReport test() {
+        try {
+            aver = sn.reviewOpinion("Marin", "kyrian", 3, "Film", "FightClub", "Tommy");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with bad login (category Film)");
+                testErr[1]++;
+            }
+        } catch (NotMemberException e) {
+            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
 
-            System.out.println("Testing opinionReview()");
-    
-            ISocialNetworkPremium sn = new SocialNetwork();
-    
-            int nbTests = 0;
-            int nbErrors = 0;
+        try {
+            aver = sn.reviewOpinion("Kyrian", "blabla", 3, "Book", "La Boulangerie", "Tommy");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with bad password (category Book)");
+                testErr[1]++;
+            }
+        } catch (NotMemberException e) {
+            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "blabla", 3, "Film", "FightClub", "Tommy");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with bad password (category Film)");
+                testErr[1]++;
+            }
+        } catch (NotMemberException e) {
+            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Book", "La Boulangerie", "Marin");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with bad reviewer (category Book)");
+                testErr[1]++;
+            }
+        } catch (NotMemberException e) {
+            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "FightClub", "Marin");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with bad reviewer (category Film)");
+                testErr[1]++;
+            }
+        } catch (NotMemberException e) {
+            System.out.println("OK 1.5: NotMemberException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        System.out.println("Testing NotItemException()");
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Book", "Le Livre", "Tommy");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with book that doesn't exist.");
+                testErr[1]++;
+            }
+        } catch (NotItemException e) {
+            System.out.println("OK 1.5: NotItemException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "Le Film", "Tommy");
+            if (aver == 3) {
+                System.out.println("Err 1.5: add opinion with film that doesn't exist.");
+                testErr[1]++;
+            }
+        } catch (NotItemException e) {
+            System.out.println("OK 1.5: NotItemException has been successfully catched");
+            testErr[0]++;
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        System.out.println("Testing Average");
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "kyrian", 3, "Film", "Le Film", "Tommy");
+            if (aver == 3) {
+                System.out.println("1.1 OK -> the login add mark");
+                testErr[0]++;
+            } else {
+                System.out.println("Err 1.1 : err add opinion");
+                testErr[1]++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Kyrian", "kyrian", 1, "Film", "Le Film", "Tommy");
+            if (aver == 1) {
+                System.out.println("1.2 OK -> the login change his mark and the average mark has been changed");
+                testErr[0]++;
+            } else {
+                System.out.println("Err 1.2 : err add opinion");
+                testErr[1]++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Tommy", "tommy", 5, "Film", "Le Film", "Tommy");
+            if (aver == 3) {
+                System.out.println("1.3 OK -> other login add a mark and the average mark has been changed");
+                testErr[0]++;
+            } else {
+                System.out.println("Err 1.3 : err add opinion");
+                testErr[1]++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            aver = sn.reviewOpinion("Tommy", "tommy", 1, "Film", "Le Film", "Tommy");
+            if (aver == 1) {
+                System.out.println("1.4 OK -> other login change his mark and the average mark has been changed");
+                testErr[0]++;
+            } else {
+                System.out.println("Err 1.4 : err add opinion");
+                testErr[1]++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        return testErr;
+
+    }
+
+    public static TestReport test() {
+
+        System.out.println("Testing opinionReview()");
+
+        ISocialNetworkPremium sn = new SocialNetwork();
+
+        int nbTests = 0;
+        int nbErrors = 0;
 
         try {
             sn.addMember("Kyrian", "kyrian", "profile");
@@ -201,48 +263,47 @@ public class OpinionReviewTest {
         nbErrors += addOpinionReviewTest(sn, null, "pass", 5, "film", "titre", "Kyrian", "1.1",
                 "opinionReview() doesn't reject null login");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, " ", "pass",  5, "film", "titre", "Kyrian", "1.2",
+        nbErrors += addOpinionReviewTest(sn, " ", "pass", 5, "film", "titre", "Kyrian", "1.2",
                 "reviewItemFilm() doesn't reject logins that don't contain at least one character other than space");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B ", null,  5, "film", "titre", "Kyrian", "1.3",
+        nbErrors += addOpinionReviewTest(sn, "B ", null, 5, "film", "titre", "Kyrian", "1.3",
                 "reviewItemFilm() doesn't reject null passwords");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B", "  qwd ",  5, "film", "titre", "Kyrian",, "1.4",
+        nbErrors += addOpinionReviewTest(sn, "B", "  qwd ", 5, "film", "titre", "Kyrian", "1.4",
                 "reviewItemFilm() doesn't reject passwords that don't contain at least 4 characters (not taking into account leading or trailing blanks)");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B", "pass",  5, "film", null, "Kyrian", "1.5",
+        nbErrors += addOpinionReviewTest(sn, "B", "pass", 5, "film", null, "Kyrian", "1.5",
                 "reviewItemFilm() doesn't reject null title)");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B", "pass",  5, "film", " ", "Kyrian", "1.6",
+        nbErrors += addOpinionReviewTest(sn, "B", "pass", 5, "film", " ", "Kyrian", "1.6",
                 "reviewItemFilm() doesn't reject title at least one character other than space)");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B", "pass",  -2, "film", "titre", "Kyrian", "1.7",
+        nbErrors += addOpinionReviewTest(sn, "B", "pass", -2, "film", "titre", "Kyrian", "1.7",
                 "reviewItemFilm() doesn't reject <0 mark)");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B", "pass",  6, "film", "titre", "Kyrian", "1.7",
-                "reviewItemFilm() doesn't reject >5 mark)"); 
+        nbErrors += addOpinionReviewTest(sn, "B", "pass", 6, "film", "titre", "Kyrian", "1.7",
+                "reviewItemFilm() doesn't reject >5 mark)");
 
         int testErr[] = MeanOpinionReview(sn);
         nbTests += testErr[0];
         nbErrors += testErr[1];
-    
-                    try {
-                        TestReport tr = new TestReport(nbTests, nbErrors);
-                        System.out.println("\n opinionReview : " + tr);
-                        return tr;
-                    } catch (NotTestReportException e) { // This shouldn't happen
-                        System.out.println("Unexpected error in opinionReview test code - Can't return valuable test results");
-                        return null;
-                    }
-                }
-            
-                /**
-                 * Launches test()
-                 * 
-                 * @param args not used
-                 */
-                public static void main(String[] args) {
-                    test();
-                }
+
+        try {
+            TestReport tr = new TestReport(nbTests, nbErrors);
+            System.out.println("\n opinionReview : " + tr);
+            return tr;
+        } catch (NotTestReportException e) { // This shouldn't happen
+            System.out.println("Unexpected error in opinionReview test code - Can't return valuable test results");
+            return null;
         }
-}}
+    }
+
+    /**
+     * Launches test()
+     * 
+     * @param args not used
+     */
+    public static void main(String[] args) {
+        test();
+    }
+}

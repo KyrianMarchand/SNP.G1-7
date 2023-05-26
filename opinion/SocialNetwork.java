@@ -13,7 +13,7 @@ import exceptions.NotMemberException;
  * Skeleton for the SocialNetwork
  * 
  */
-public class SocialNetwork implements ISocialNetwork {
+public class SocialNetwork implements ISocialNetworkPremium {
 
     private LinkedList<Member> members;
     private LinkedList<Book> books;
@@ -424,5 +424,12 @@ public class SocialNetwork implements ISocialNetwork {
         } catch (NotMemberException | BadEntryException | NotItemException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public float reviewOpinion(String login, String password, float mark, String category, String title,
+            String reviewer) throws BadEntryException, NotMemberException, NotItemException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reviewOpinion'");
     }
 }

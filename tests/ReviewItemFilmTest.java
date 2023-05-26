@@ -1,6 +1,7 @@
 package tests;
 
 import opinion.ISocialNetwork;
+import opinion.ISocialNetworkPremium;
 import opinion.SocialNetwork;
 
 import exceptions.BadEntryException;
