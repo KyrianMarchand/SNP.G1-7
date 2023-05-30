@@ -17,38 +17,78 @@ public class Review {
         this.opinions = new LinkedList<Opinion>();
     }
 
+    
+    /** 
+     * @return float
+     */
     public float getMark() {
         return mark;
     }
 
+    
+    /** 
+     * @return 
+     */
     public String getComment() {
         return comment;
     }
 
+    
+    /** 
+     * @return 
+     */
     public Member getReviewer() {
         return reviewer;
     }
 
+    
+    /** 
+     * @return 
+     */
     public Item getItem() {
         return item;
     }
 
+    
+    /** 
+     * @param comment
+     * @return 
+     */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    
+    /** 
+     * @param mark
+     * @return 
+     */
     public void setMark(float mark) {
         this.mark = mark;
     }
 
+    
+    /** 
+     * @return LinkedList<Opinion>
+     */
     public LinkedList<Opinion> getOpinions() {
         return opinions;
     }
 
+    
+    /** 
+     * @param o
+     * @return 
+     */
     public void addOpinions(Opinion o) {
         opinions.add(o);
     }
 
+    
+    /** 
+     * @param reviewer
+     * @return Opinion
+     */
     public Opinion checkOpinion(String reviewer) {
         for (Opinion opinion : opinions) {
             if (opinion.getReviewer().equals(reviewer)) {
@@ -58,10 +98,19 @@ public class Review {
         return null;
     }
 
+    
+    /** 
+     * @param o
+     * @return 
+     */
     public void addOpinion(Opinion o) {
         opinions.add(o);
     }
 
+    
+    /** 
+     * @return float
+     */
     public float meanOpinion() {
         float mean = 0;
         for (int i = 0; i < opinions.size(); i++) {

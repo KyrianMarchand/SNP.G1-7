@@ -391,6 +391,13 @@ public class SocialNetwork implements ISocialNetworkPremium {
         return result;
     }
 
+    
+    /** 
+     * @param reviews
+     * @param login
+     * @return Review
+     * @throws NotItemException
+     */
     private Review getReview(LinkedList<Review> reviews, String login) throws NotItemException {
         for (Review review : reviews) {
             if (review.getReviewer().getLogin().equals(login)) {
@@ -400,6 +407,19 @@ public class SocialNetwork implements ISocialNetworkPremium {
         throw new NotItemException("Reviewer not in SocialNetwork");
     }
 
+    
+    /** 
+     * @param login
+     * @param password
+     * @param mark
+     * @param category
+     * @param title
+     * @param reviewer
+     * @return float
+     * @throws BadEntryException
+     * @throws NotMemberException
+     * @throws NotItemException
+     */
     public float reviewOpinion(String login, String password, float mark, String category, String title,
             String reviewer) throws BadEntryException, NotMemberException, NotItemException {
         float ret = 0;

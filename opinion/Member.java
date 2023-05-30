@@ -45,10 +45,18 @@ public class Member {
         return reviewMemberList;
     }
 
+    
+    /** 
+     * @return 
+     */
     public float getKarma() {
         return karma;
     }
 
+    
+    /** 
+     * @return 
+     */
     public void computeKarma() {
         float mean = 0;
         Boolean look = false;
