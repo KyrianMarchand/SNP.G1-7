@@ -4,25 +4,24 @@ import exceptions.BadEntryException;
 import exceptions.NotItemException;
 import exceptions.NotMemberException;
 
-public interface ISocialNetworkPremium extends ISocialNetwork{
-	
-	
+public interface ISocialNetworkPremium extends ISocialNetwork {
+
 	/**
-     * @param login
-     *            the login of the member
-     * @param password
-     *            the password of the member
-     * @param mark
-     *            the mark you want to give to the review
-     * @param category
-     *            the category of the item to review (film or book)
-     * @param title
-     *            the title the item where the review is left
-     * @param reviewer
-     *            the reviewer of the review you want to mark
-     * @return the mean of the review
-     *  
-     * @throws BadEntryException
+	 * @param login
+	 *                 the login of the member
+	 * @param password
+	 *                 the password of the member
+	 * @param mark
+	 *                 the mark you want to give to the review
+	 * @param category
+	 *                 the category of the item to review (film or book)
+	 * @param title
+	 *                 the title the item where the review is left
+	 * @param reviewer
+	 *                 the reviewer of the review you want to mark
+	 * @return the mean of the review
+	 * 
+	 * @throws BadEntryException
 	 *                            <ul>
 	 *                            <li>if login is not instantiated or contains less
 	 *                            than one
@@ -42,16 +41,18 @@ public interface ISocialNetworkPremium extends ISocialNetwork{
 	 *                            </ul>
 	 *                            <br>
 	 * @throws NotMemberException
-     *                            <ul>
-     * 	                          <li>if login does not match with the login of a
+	 *                            <ul>
+	 *                            <li>if login does not match with the login of a
 	 *                            registered member or if password does not
-	 *                            correspond to </li>
-     *                            <li>if reviewer does not exist</li>
-     *                            </ul>
+	 *                            correspond to</li>
+	 *                            <li>if reviewer does not exist</li>
+	 *                            </ul>
 	 * @throws NotItemException
-	 *                            if title is not registered as a book's title or a film's title in
+	 *                            if title is not registered as a book's title or a
+	 *                            film's title in
 	 *                            the <i>SocialNetwork</i>
-    */	
-	public float reviewOpinion(String login, String password, float mark, String category, String title, String reviewer) throws BadEntryException,NotMemberException, NotItemException ;
-	
+	 */
+	public float reviewOpinion(String login, String password, float mark, String category, String title,
+			String reviewer) throws BadEntryException, NotMemberException, NotItemException;
+
 }

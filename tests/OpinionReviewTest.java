@@ -24,15 +24,15 @@ public class OpinionReviewTest {
             return 1;
 
         } catch (BadEntryException e) {
-            System.out.println("Test " + testId + " : BadEntryExeption was thrown " + e);
+            System.out.println("Test " + testId + " : OK BadEntryExeption was thrown " + e);
             return 0;
 
         } catch (NotMemberException e) {
-            System.out.println("Test " + testId + " : NotMemberException was thrown " + e);
+            System.out.println("Test " + testId + " : OK NotMemberException was thrown " + e);
             return 0;
 
         } catch (NotItemException e) {
-            System.out.println("Test " + testId + " : NotItemException was thrown " + e);
+            System.out.println("Test " + testId + " : OK NotItemException was thrown " + e);
             return 0;
 
         } catch (Exception e) {
@@ -224,10 +224,55 @@ public class OpinionReviewTest {
             testErr[1]++;
         }
 
+        System.out.println("Testing nominal()");
+
+        try {
+            sn.addMember("Enzo", "enzo", "profile");
+            if (sn.nbMembers() == 4) {
+                System.out.println("OK 5.1: Member have been added.");
+                testErr[0]++;
+            } else {
+                System.out.println("Err 5.1: err addMember().");
+                testErr[1]++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            sn.addItemBook("Enzo", "enzo", "Livre", "null", "null", 2);
+            if (sn.nbBooks() == 3) {
+                System.out.println("OK 5.2: Book have been added.");
+                testErr[0]++;
+            } else {
+                System.out.println("Err 5.2: err addItemBook().");
+                testErr[1]++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            testErr[1]++;
+        }
+
+        try {
+            sn.reviewItemBook("Kyrian", "kyrian", "Livre", 5, "null");
+            System.out.println("OK 5.3: Book have been reviewed.");
+        } catch (Exception e) {
+            System.out.println("Err 5.2: err reviewItemBook()." + e);
+            testErr[1]++;
+        }
+
+        try {
+            sn.reviewOpinion("Paul", "paul", 3, "Book", "Livre", "Kyrian");
+            System.out.println("OK 5.4: Opinion have been added.");
+        } catch (Exception e) {
+            System.out.println("Err 5.4: err reviewOpinion()." + e);
+            testErr[1]++;
+        }
+
         return testErr;
 
     }
-    
 
     public static TestReport test() {
 
@@ -250,7 +295,6 @@ public class OpinionReviewTest {
             sn.reviewItemBook("Tommy", "tommy", "La boulangerie", 3, "Livre moyen.");
             sn.reviewItemFilm("Tommy", "tommy", "HitMan", 5, "Le film etait passable");
 
-    
         } catch (BadEntryException e1) {
             e1.printStackTrace();
         } catch (NotMemberException e1) {
@@ -288,7 +332,7 @@ public class OpinionReviewTest {
         nbErrors += addOpinionReviewTest(sn, "B", "pass", -2, "film", "titre", "Kyrian", "1.7",
                 "reviewItemFilm() doesn't reject <0 mark)");
         nbTests++;
-        nbErrors += addOpinionReviewTest(sn, "B", "pass", 6, "film", "titre", "Kyrian", "1.7",
+        nbErrors += addOpinionReviewTest(sn, "B", "pass", 6, "film", "titre", "Kyrian", "1.8",
                 "reviewItemFilm() doesn't reject >5 mark)");
 
         int testErr[] = MeanOpinionReview(sn);

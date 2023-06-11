@@ -20,7 +20,7 @@ public class ConsultItemTest {
         } catch (BadEntryException e) {
             // If a BadEntryException was thrown, print a message and return 0 to indicate
             // that the test passed
-            System.out.println("Test " + testId + " : BadEntry was thrown");
+            System.out.println("Test " + testId + " : OK BadEntry was thrown");
             return 0;
 
         } catch (Exception e) {
@@ -64,6 +64,7 @@ public class ConsultItemTest {
             System.out.println("Unexpected error in ConsultItemTest test code - Can't return valuable test results");
             return null;
         }
+
     }
 
     // The main method runs the test() method

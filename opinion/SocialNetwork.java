@@ -376,7 +376,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
         result += "Members:\n";
         for (int i = 0; i < members.size(); i++) {
             Member member = members.get(i);
-            result += "- " + member.getLogin() + " a un karma de : " +member.getKarma()+ "\n";
+            result += "- " + member.getLogin() + " a un karma de : " + member.getKarma() + "\n";
         }
         result += "\nBooks:\n";
         for (int i = 0; i < books.size(); i++) {
@@ -391,8 +391,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
         return result;
     }
 
-    
-    /** 
+    /**
      * @param reviews
      * @param login
      * @return Review
@@ -407,8 +406,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
         throw new NotItemException("Reviewer not in SocialNetwork");
     }
 
-    
-    /** 
+    /**
      * @param login
      * @param password
      * @param mark
@@ -465,7 +463,7 @@ public class SocialNetwork implements ISocialNetworkPremium {
             if (film == null)
                 throw new NotItemException("Unknown film");
             reviews = film.getReviewItemList();
-        } else if (category.trim().toLowerCase().equals("book")){
+        } else if (category.trim().toLowerCase().equals("book")) {
             Book book = this.getBook(title);
             if (book == null)
                 throw new NotItemException("Unknown book");
@@ -477,21 +475,23 @@ public class SocialNetwork implements ISocialNetworkPremium {
             Opinion myOpinion = null;
 
             try {
-                myOpinion = reviewToComment.checkOpinion(login);
-            } catch (Exception e) {}
+                myOpinion = reviewToComment.checkOpinion(member.getLogin());
+            } catch (Exception e) {
+            }
 
             if (reviewToComment != null && myOpinion == null) {
                 Opinion opinion = new Opinion(mark, member);
                 reviewToComment.addOpinion(opinion);
             } else if (reviewToComment != null && myOpinion != null) {
-                myOpinion.setMark(mark);
+                reviewToComment.removeOpinion(myOpinion);
+                Opinion opinion = new Opinion(mark, member);
+                reviewToComment.addOpinion(opinion);
             } else {
                 throw new BadEntryException("No review exist.");
             }
 
             reviewToComment.getReviewer().computeKarma();
             ret = reviewToComment.meanOpinion();
-
         }
         return ret;
     }

@@ -17,98 +17,95 @@ public class Review {
         this.opinions = new LinkedList<Opinion>();
     }
 
-    
-    /** 
+    /**
      * @return float
      */
     public float getMark() {
         return mark;
     }
 
-    
-    /** 
-     * @return 
+    /**
+     * @return
      */
     public String getComment() {
         return comment;
     }
 
-    
-    /** 
-     * @return 
+    /**
+     * @return
      */
     public Member getReviewer() {
         return reviewer;
     }
 
-    
-    /** 
-     * @return 
+    /**
+     * @return
      */
     public Item getItem() {
         return item;
     }
 
-    
-    /** 
+    /**
      * @param comment
-     * @return 
+     * @return
      */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
-    
-    /** 
+    /**
      * @param mark
-     * @return 
+     * @return
      */
     public void setMark(float mark) {
         this.mark = mark;
     }
 
-    
-    /** 
+    /**
      * @return LinkedList<Opinion>
      */
     public LinkedList<Opinion> getOpinions() {
         return opinions;
     }
 
-    
-    /** 
+    /**
      * @param o
-     * @return 
+     * @return
      */
     public void addOpinions(Opinion o) {
         opinions.add(o);
     }
 
-    
-    /** 
+    /**
      * @param reviewer
      * @return Opinion
      */
     public Opinion checkOpinion(String reviewer) {
         for (Opinion opinion : opinions) {
-            if (opinion.getReviewer().equals(reviewer)) {
+            if (opinion.getReviewer().getLogin().equals(reviewer)) {
                 return opinion;
             }
         }
         return null;
     }
 
-    
-    /** 
+    /**
      * @param o
-     * @return 
+     * @return
      */
     public void addOpinion(Opinion o) {
         opinions.add(o);
     }
 
-    
-    /** 
+    /**
+     * @param opinion
+     * @return
+     */
+    public void removeOpinion(Opinion opinion) {
+        opinions.remove(opinion);
+    }
+
+    /**
      * @return float
      */
     public float meanOpinion() {
