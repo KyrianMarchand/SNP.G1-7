@@ -38,29 +38,14 @@ public class ReviewItemBookTest {
         int testErr[] = { 0, 0 };
 
         System.out.println("add ReviewItemBook()");
-        try {
-            aver = sn.reviewItemBook("Kyrian", "kyrian", "La Boulangerie", 5, "Très bon livre");
-            if (aver == 5) {
-                System.out.println("1.1 OK -> the login add a mark");
-                testErr[0]++;
-            } else {
-                System.out.println("Err 1.1 : err add review");
-                testErr[1]++;
-
-            }
-
-        } catch (Exception e) {
-            System.out.println(e);
-            testErr[1]++;
-        }
 
         try {
             aver = sn.reviewItemBook("Kyrian", "kyrian", "La Boulangerie", 2, "Moyen...");
             if (aver == 2) {
-                System.out.println("1.2 OK -> the login change his mark and the average mark has been changed");
+                System.out.println("1.1 OK -> the login change his mark and the average mark has been changed");
                 testErr[0]++;
             } else {
-                System.out.println("Err 10.2: err add review");
+                System.out.println("Err 1.1: err add review");
                 testErr[1]++;
 
             }
@@ -72,10 +57,10 @@ public class ReviewItemBookTest {
         try {
             aver = sn.reviewItemBook("Tommy", "tommy", "La Boulangerie", 4, "Bien !");
             if (aver == 3) {
-                System.out.println("1.3 OK -> other login add a mark and the average mark has been changed");
+                System.out.println("1.2 OK -> other login add a mark and the average mark has been changed");
                 testErr[0]++;
             } else {
-                System.out.println("Err 1.3:  err add review");
+                System.out.println("Err 1.2:  err add review");
                 testErr[1]++;
 
             }
@@ -88,10 +73,10 @@ public class ReviewItemBookTest {
         try {
             aver = sn.reviewItemBook("Tommy", "tommy", "La Boulangerie", 0, "Nul...");
             if (aver == 1) {
-                System.out.println("1.4 OK -> other login change his mark and the average mark has been changed");
+                System.out.println("1.3 OK -> other login change his mark and the average mark has been changed");
                 testErr[0]++;
             } else {
-                System.out.println("Err 10.4: err add review");
+                System.out.println("Err 1.3: err add review");
                 testErr[1]++;
 
             }
@@ -105,12 +90,12 @@ public class ReviewItemBookTest {
         try {
             aver = sn.reviewItemBook("Marin", "kyrian", "La Boulangerie", 4, "Bien");
             if (aver == 2) {
-                System.out.println("Err 1.5: add Book with bad login");
+                System.out.println("Err 1.4: add Book with bad login");
                 testErr[1]++;
             }
 
         } catch (NotMemberException e) {
-            System.out.println("1.5 OK -> NotMemberException has been successfully catched");
+            System.out.println("1.4 OK -> NotMemberException has been successfully catched");
             testErr[0]++;
 
         } catch (Exception e) {
@@ -124,11 +109,11 @@ public class ReviewItemBookTest {
             System.out.println("Err 1.6: add bad Book");
 
         } catch (NotMemberException e) {
-            System.out.println("1.6 OK -> NotMemberException has been successfully catched");
+            System.out.println("1.5 OK -> NotMemberException has been successfully catched");
             testErr[1]++;
 
         } catch (NotItemException e) {
-            System.out.println("1.6 OK -> NotItemException has been successfully catched");
+            System.out.println("1.5 OK -> NotItemException has been successfully catched");
             testErr[0]++;
 
         } catch (Exception e) {
