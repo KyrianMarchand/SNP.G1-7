@@ -18,16 +18,16 @@ public class ReviewItemFilmTest {
 
         try {
             sn.reviewItemFilm(login, password, title, mark, comment);
-            System.out.println("Test " + testId + " : " + errorMessage);
+            System.out.println("OK " + testId + " : " + errorMessage);
 
             return 1;
         } catch (BadEntryException e) {
-            System.out.println("Test " + testId + " : BadEntry was thrown");
+            System.out.println("OK " + testId + " : BadEntry was thrown");
             return 0;
 
         } catch (Exception e) {
 
-            System.out.println("Test " + testId + " : unexpected exception. " + e);
+            System.out.println("OK " + testId + " : unexpected exception. " + e);
             return 1;
         }
     }
@@ -138,6 +138,26 @@ public class ReviewItemFilmTest {
         return testErr;
     }
 
+    private static void nominalTestReviewItemFilm(ISocialNetwork sn) {
+        float aver = 0f;
+
+        try {
+            System.out.println("Tommy added a review with a mark of 5, the average is now : "
+                    + sn.reviewItemFilm("Tommy", "tommy", "La police", 5, "Good book"));
+            System.out.println("Tommy changed his mark one the review with a mark of 2, the average is now : "
+                    + sn.reviewItemFilm("Tommy", "tommy", "La police", 2, "Excellent"));
+            System.out.println("Kyrian added a review with a mark of 4, the average is now : "
+                    + sn.reviewItemFilm("Kyrian", "kyrian", "La police", 4, "Great"));
+            System.out.println("Kyrian changed his mark one the review with a mark of 3, the average is now : "
+                    + sn.reviewItemFilm("Kyrian", "kyrian", "La police", 3, "Excellent"));
+        } catch (NotMemberException | BadEntryException | NotItemException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("");
+
+    }
+
     public static TestReport test() {
 
         ISocialNetwork sn = new SocialNetwork();
@@ -159,6 +179,9 @@ public class ReviewItemFilmTest {
         } catch (MemberAlreadyExistsException e) {
             e.printStackTrace();
         }
+
+        System.out.println("\nNominal Test; \n");
+        nominalTestReviewItemFilm(sn);
 
         System.out.println("BadEntryException()");
         nbTests++;

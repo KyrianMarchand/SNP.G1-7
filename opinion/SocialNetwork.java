@@ -2,6 +2,8 @@ package opinion;
 
 import java.util.LinkedList;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 import exceptions.BadEntryException;
 import exceptions.ItemBookAlreadyExistsException;
 import exceptions.ItemFilmAlreadyExistsException;
